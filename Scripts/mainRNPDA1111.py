@@ -130,13 +130,17 @@ def repo():
 
     print('[1;32mInstalling/Updating the repo...')
     os.chdir('/workspace')
-    if not os.path.exists('/workspace/sd/stablediffusiond'): #reset later
+    if not os.path.exists('/sd'):
+    call('mkdir /sd', shell=True)
+    if not os.path.exists('/workspace/sd/stablediffusiond'):
+        call('mkdir /sd/stablediffusiond', shell=True) #reset later
        call('wget -q -O sd_mrep.tar.zst https://github.com/utmostmick0/dependencies/raw/main/sd_mrep.tar.zst', shell=True)
        call('tar --zstd -xf sd_mrep.tar.zst', shell=True)
        call('rm sd_mrep.tar.zst', shell=True)        
 
     os.chdir('/workspace/sd')
     if not os.path.exists('stable-diffusion-webui'):
+            call('mkdir /sd/stable-diffusion-webui', shell=True)
         call('git clone -q --depth 1 --branch master https://github.com/AUTOMATIC1111/stable-diffusion-webui', shell=True)
 
     os.chdir('/workspace/sd/stable-diffusion-webui/')
