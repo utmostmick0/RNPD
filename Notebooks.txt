@@ -1,0 +1,5 @@
+https://github.com/utmostmick0/RNPD/raw/RNPD-Dreambooth-v1.ipynb
+https://github.com/utmostmick0/RNPD/raw/RNPD-Dreambooth-v2.ipynb
+https://github.com/utmostmick0/RNPD/raw/main/Notebooks/RNPD-A1111.ipynb
+# https://github.com/TheLastBen/PPS/raw/main/SDXL-LoRA-RNPD.ipynb
+# https://github.com/TheLastBen/PPS/raw/main/RNPD-ComfyUI.ipynb
