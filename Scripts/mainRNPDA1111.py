@@ -24,7 +24,7 @@ def setup_workspace():
         os.makedirs('cache')
 
 def ntbk():
-    workspace_dir = os.path.join(os.getcwd(), 'workspace')
+    workspace_dir = '/workspace'
     os.chdir(workspace_dir)
     if not os.path.exists('Latest_Notebooks'):
         os.makedirs('Latest_Notebooks')
@@ -35,14 +35,14 @@ def ntbk():
 
 def repo():
     print('Installing/Updating the repo...')
-    workspace_dir = os.path.join(os.getcwd(), 'workspace')
+    workspace_dir = '/workspace'
     os.chdir(workspace_dir)
     if not os.path.exists('sd'):
         os.makedirs('sd')
     os.chdir('sd')
 
     if not os.path.exists('stablediffusiond'):
-        subprocess.call('wget -q -O sd_mrep.tar.zst https://github.com/utmostmick0/dependencies/raw/main/sd_mrep.tar.zst', shell=True)
+        subprocess.call('wget -q -O sd_mrep.tar.zst https://github.com/utmostmick0/resolve/main/dependencies/sd_mrep.tar.zst', shell=True)
         # Use tar -xf to handle various formats
         subprocess.call('tar -xf sd_mrep.tar.zst', shell=True)
         subprocess.call('rm sd_mrep.tar.zst', shell=True)
@@ -84,15 +84,15 @@ def setup_models(Original_Model_Version, Path_to_MODEL, MODEL_LINK, Temporary_St
         if Temporary_Storage:
             model = f'/models/{modelname}'
         else:
-            model = f'{os.getcwd()}/sd/stable-diffusion-webui/models/Stable-diffusion/{modelname}'
+            model = f'/workspace/sd/stable-diffusion-webui/models/Stable-diffusion/{modelname}'
         if not os.path.exists(model):
             gdown.download(url=MODEL_LINK, output=model, quiet=False, fuzzy=True)
     else:
         models = {
-            "v1.5": f'{os.getcwd()}/sd/stable-diffusion-webui/models/Stable-diffusion/SDv1.5.ckpt',
-            "v2-512": f'{os.getcwd()}/sd/stable-diffusion-webui/models/Stable-diffusion/v2-1_512-nonema-pruned.safetensors',
-            "v2-768": f'{os.getcwd()}/sd/stable-diffusion-webui/models/Stable-diffusion/v2-1_768-nonema-pruned.safetensors',
-            "SDXL": f'{os.getcwd()}/sd/stable-diffusion-webui/models/Stable-diffusion/sd_xl_base_1.0.safetensors'
+            "v1.5": "/workspace/sd/stable-diffusion-webui/models/Stable-diffusion/SDv1.5.ckpt",
+            "v2-512": "/workspace/sd/stable-diffusion-webui/models/Stable-diffusion/v2-1_512-nonema-pruned.safetensors",
+            "v2-768": "/workspace/sd/stable-diffusion-webui/models/Stable-diffusion/v2-1_768-nonema-pruned.safetensors",
+            "SDXL": "/workspace/sd/stable-diffusion-webui/models/Stable-diffusion/sd_xl_base_1.0.safetensors"
         }
         model = models.get(Original_Model_Version, "")
     return model
@@ -104,7 +104,7 @@ def main():
     force_reinstall = False  # set based on your requirements
     if not force_reinstall and os.path.exists('/usr/local/lib/python3.9/dist-packages/safetensors'):
         ntbk()
-        os.environ['TORCH_HOME'] = f'{os.getcwd()}/cache/torch'
+        os.environ['TORCH_HOME'] = '/workspace/cache/torch'
         os.environ['PYTHONWARNINGS'] = 'ignore'
         print('Modules and workspace updated, dependencies already installed')
     else:
