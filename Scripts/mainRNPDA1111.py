@@ -41,9 +41,9 @@ def Deps(force_reinstall):
         if not os.path.exists('cache'):
             call('mkdir cache', shell=True)
         os.chdir('/deps')
-        call('wget -q -i https://raw.githubusercontent.com/utmostmick0/fast-stable-diffusion/main/Dependencies/aptdeps.txt', shell=True)
+        call('wget -q -i https://github.com/utmostmick0/fast-stable-duffusion/raw/main/Dependencies/aptdeps.txt', shell=True)
         call('dpkg -i *.deb', shell=True, stdout=open('/dev/null', 'w'))
-        depsinst("https://github.com/utmostmick0/sd_dependencies/blob/f2216938549c58f6d16363cdbe8650960839bc7e/rnpddeps-t2.tar.zst", "/deps/rnpggeps-t2.tar.zst")
+        depsinst("https://github.com/utmostmick0/sd_dependencies/raw/main/rnpddeps-t2.tar.zst", "/deps/rnpggeps-t2.tar.zst")
         call('tar -C / --zstd -xf npggeps-t2.tar.zst', shell=True, stdout=open('/dev/null', 'w'))
         call("sed -i 's@~/.cache@/notebooks/cache@' /usr/local/lib/python3.9/dist-packages/transformers/utils/hub.py", shell=True)
         os.chdir('/notebooks')
@@ -131,7 +131,7 @@ def repo():
     print('[1;32mInstalling/Updating the repo...')
     os.chdir('/notebooks')
     if not os.path.exists('/notebooks/sd/stablediffusiond'): #reset later
-       call('wget -q -O sd_mrep.tar.zst https://github.com/utmostmick0/dependencies/blob/3d4911654a6939e676f4353806b16beeb08c89fd/sd_mrep.tar.zst', shell=True)
+       call('wget -q -O sd_mrep.tar.zst https://github.com/utmostmick0/dependencies/raw/main/sd_mrep.tar.zst', shell=True)
        call('tar --zstd -xf sd_mrep.tar.zst', shell=True)
        call('rm sd_mrep.tar.zst', shell=True)        
 
@@ -314,8 +314,8 @@ def CN(ControlNet_Model, ControlNet_XL_Model):
         renamed = re.sub("_sd14v1", "-fp16", filename)
         os.rename(os.path.join(mdldir, filename), os.path.join(mdldir, renamed))
 
-    call('wget -q -O CN_models.txt https://github.com/utmostmick0/fast-stable-duffusion/blob/0d7471937a131aa52e61992715c40ca56573cbd9/AUTOMATIC1111_files/CN_models.txt', shell=True)
-    call('wget -q -O CN_models_XL.txt https://github.com/utmostmick0/fast-stable-duffusion/blob/0d7471937a131aa52e61992715c40ca56573cbd9/AUTOMATIC1111_files/CN_models_XL.txt', shell=True)
+    call('wget -q -O CN_models.txt https://github.com/utmostmick0/fast-stable-duffusion/raw/main/AUTOMATIC1111_files/CN_models.txt', shell=True)
+    call('wget -q -O CN_models_XL.txt https://github.com/utmostmick0/fast-stable-duffusion/raw/main/AUTOMATIC1111_files/CN_models_XL.txt', shell=True)
       
     with open("CN_models.txt", 'r') as f:
         mdllnk = f.read().splitlines()
@@ -382,7 +382,7 @@ def sdui(User, Password, model):
       auth=""
 
     call('wget -q -O /notebooks/sd/stable-diffusion-webui/modules/styles.py https://github.com/utmostmick0/fast-stable-diffusion/raw/main/AUTOMATIC1111_files/styles.py', shell=True)
-    call('wget -q -O /usr/local/lib/python3.9/dist-packages/gradio/blocks.py https://raw.githubusercontent.com/utmostmick0/fast-stable-diffusion/main/AUTOMATIC1111_files/blocks.py', shell=True)
+    call('wget -q -O /usr/local/lib/python3.9/dist-packages/gradio/blocks.py https://github.com/utmostmick0/fast-stable-diffusion/raw/main/AUTOMATIC1111_files/blocks.py', shell=True)
     
     localurl="tensorboard-"+os.environ.get('RNPD_FQDN')
     
