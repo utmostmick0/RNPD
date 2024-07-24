@@ -42,7 +42,7 @@ def repo():
     os.chdir('sd')
 
     if not os.path.exists('stablediffusiond'):
-        subprocess.call('wget -q -r -O rnpddeps.tar.zst https://github.com/utmostmick0/sd_dependencies/blob/main/rnpddeps.tar.zst', shell=True)
+        depsinst('https://github.com/utmostmick0/sd_dependencies/blob/main/rnpddeps.tar.zst'", "/deps/ppsdeps.tar.zst")
         # Use tar -xf to handle various formats
         subprocess.call('tar -xf sd_mrep.tar.zst', shell=True)
         subprocess.call('rm sd_mrep.tar.zst', shell=True)
