@@ -111,51 +111,53 @@ def dwn(url, dst, msg):
 
 
 
-def ntbk():
+def create_dir(path):
+    if not os.path.exists(path):
+        os.makedirs(path)
 
+def ntbk():
     os.chdir('/workspace')
-    if not os.path.exists('Latest_Notebooks'):
-        call('mkdir Latest_Notebooks', shell=True)
-    else:
-        call('rm -r Latest_Notebooks', shell=True)
-        call('mkdir Latest_Notebooks', shell=True)
-    os.chdir('/workspace/Latest_Notebooks')
+    create_dir('Latest_Notebooks')
+    os.chdir('Latest_Notebooks')
     call('wget -q -i https://github.com/utmostmick0/RNPD/raw/main/Notebooks.txt', shell=True)
     call('rm Notebooks.txt', shell=True)
     os.chdir('/workspace')
 
-
-
 def repo():
-
-    print('[1;32mInstalling/Updating the repo...')
+    print('Installing/Updating the repo...')
     os.chdir('/workspace')
-    if not os.path.exists('/sd'):
-    call('mkdir /sd', shell=True)
-    if not os.path.exists('/workspace/sd/stablediffusiond'):
-        call('mkdir /sd/stablediffusiond', shell=True) #reset later
-       call('wget -q -O sd_mrep.tar.zst https://github.com/utmostmick0/dependencies/raw/main/sd_mrep.tar.zst', shell=True)
-       call('tar --zstd -xf sd_mrep.tar.zst', shell=True)
-       call('rm sd_mrep.tar.zst', shell=True)        
 
+    create_dir('/workspace/sd')
     os.chdir('/workspace/sd')
+
+    if not os.path.exists('stablediffusiond'):
+        create_dir('/models')
+        call('wget -q -O sd_mrep.tar.zst https://github.com/utmostmick0/dependencies/raw/main/sd_mrep.tar.zst', shell=True)
+        call('tar --zstd -xf sd_mrep.tar.zst', shell=True)
+        call('rm sd_mrep.tar.zst', shell=True)
+
     if not os.path.exists('stable-diffusion-webui'):
-            call('mkdir /sd/stable-diffusion-webui', shell=True)
         call('git clone -q --depth 1 --branch master https://github.com/AUTOMATIC1111/stable-diffusion-webui', shell=True)
 
-    os.chdir('/workspace/sd/stable-diffusion-webui/')
+    os.chdir('stable-diffusion-webui')
     call('git reset --hard', shell=True, stdout=open('/dev/null', 'w'))
-    print('[1;32m')
     call('git checkout master', shell=True, stdout=open('/dev/null', 'w'), stderr=open('/dev/null', 'w'))
     call('git pull', shell=True, stdout=open('/dev/null', 'w'))
-    os.makedirs('/workspace/sd/stable-diffusion-webui/repositories', exist_ok=True)
-    call('git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui-assets /workspace/sd/stable-diffusion-webui/repositories/stable-diffusion-webui-assets', shell=True, stdout=open('/dev/null', 'w'), stderr=open('/dev/null', 'w'))
+
+    create_dir('repositories')
+    os.chdir('repositories')
+    call('git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui-assets stable-diffusion-webui-assets', shell=True, stdout=open('/dev/null', 'w'), stderr=open('/dev/null', 'w'))
+
     os.chdir('/workspace')
-    clear_output()
+    print("Repository setup completed.")
     done()
 
+def done():
+    print("Process completed successfully.")
 
-
+# Example usage
+ntbk()
+repo()
 
 
 def mdls(Original_Model_Version, Path_to_MODEL, MODEL_LINK, Temporary_Storage):
