@@ -120,7 +120,7 @@ def ntbk():
         call('rm -r Latest_Notebooks', shell=True)
         call('mkdir Latest_Notebooks', shell=True)
     os.chdir('/workspace/Latest_Notebooks')
-    call('wget -q -i https://github.com/utmostmick0/RNPD/blob/da5c8d8f6d76cacf7c7293836ef6b0a32151aacf/Notebooks.txt', shell=True)
+    call('wget -q -i https://github.com/utmostmick0/RNPD/raw/main/Notebooks.txt', shell=True)
     call('rm Notebooks.txt', shell=True)
     os.chdir('/workspace')
 
